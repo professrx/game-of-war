@@ -79,7 +79,7 @@ class GameOfWar {
         let warPile = []
         let p1Card = this.p1.pop()
         let p2Card = this.p2.pop()
-        warPile.push(...this.p1.slice(0, 3), ...this.p2.slice(0, 3))
+        warPile.join(this.p1.slice(0, 3), this.p2.slice(0, 3))
         this.pile.push(warPile)
         console.log(this.pile.length + 'big number')
 
