@@ -83,8 +83,7 @@ class GameOfWar {
         this.pile.push(warPile)
         console.log(this.pile.length + 'big number')
 
-
-        // Draw
+        // during war, the game is initialized again- highest value wins all the cards
         if (p1Card.val > p2Card.val) {
             console.log("Player 1 wins round!")
             this.p1.push(warPile.splice(0, 7), p2Card, p1Card)
@@ -92,7 +91,7 @@ class GameOfWar {
             console.log("Player 2 wins round!")
             this.p2.push(warPile.splice(0, 7), p2Card, p1Card)
         } else {
-        // during war, the game is initialized again- highest value wins all the cards OR if it's a tie, war begins again.
+        // if it's a tie, war begins again.
             this.war()
         } 
     }
