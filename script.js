@@ -32,30 +32,89 @@ class GameOfWar {
     constructor() {
         this.p1 = []
         this.p2 = []
+        this.pile = []
         this.init() 
     }
+
     ///each player gets 26 cards (half a deck) to start
     init() {
-        let deck = new Deck
-        let splitDeck = Math.ceil(deck.cards.length / 2);
+        let deck = new Deck()
+        const splitDeck = Math.ceil(deck.cards.length / 2)
         let halfDeck = deck.cards.splice(0, splitDeck)
     ///assign each player half of the card deck
         this.p1.push(...halfDeck)
         this.p2.push(...deck.cards)
+
     }
 /// initialize the game by taking one card from each players hand 
 
+    battle() {
+        // Grab the top card from each player's hand
+        let p1Card = this.p1.pop()
+        let p2Card = this.p2.pop()
+        /// card values from each players hand are compared and the highest card value wins the cards from that round (add both drawn cards to winner's deck). 
+        if (p1Card.val > p2Card.val) {
+            console.log("Player 1 wins round!")
+            // What do I do after player 1 wins?
+            this.p1.push(p2Card, p1Card)
+            console.log(this.p1.length + "deck length 1")
+            console.log(this.p2.length + "deck length 2")
+            console.log(this.pile.length  + "pile")
+        } else if (p2Card.val > p1Card.val) {
+            console.log("Player 2 wins round!")
+            this.p2.push(p2Card, p1Card)
+            console.log(this.p1.length + "deck length 1")
+            console.log(this.p2.length + "deck length 2")
+            console.log(this.pile.length  + "pile")
+        } else {
+        // if there's a tie, war begins. 
+            console.log("Time for war!")
+            this.pile.push(p2Card, p1Card)
+            this.war()
+        } 
+      }
 
-/// card values from each players hand are compared and the highest card value wins the cards from that round (add both drawn cards to winner's deck). if there's a tie, war begins. 
+    war() {
+        // add 3 cards from each player to pile
+        let warPile = []
+        let p1Card = this.p1.pop()
+        let p2Card = this.p2.pop()
+        warPile.push(...this.p1.slice(0, 3), ...this.p2.slice(0, 3))
+        this.pile.push(warPile)
+        console.log(this.pile.length + 'big number')
 
 
-/// during war, the game is initialized again- highest value wins all the cards OR if it's a tie, war begins again.
-
-
-/// the game ends when one player has 52 cards (the full deck)
-
-
+        // Draw
+        if (p1Card.val > p2Card.val) {
+            console.log("Player 1 wins round!")
+            this.p1.push(warPile.splice(0, 7), p2Card, p1Card)
+        } else if (p2Card.val > p1Card.val) {
+            console.log("Player 2 wins round!")
+            this.p2.push(warPile.splice(0, 7), p2Card, p1Card)
+        } else {
+        // during war, the game is initialized again- highest value wins all the cards OR if it's a tie, war begins again.
+            this.war()
+        } 
+    }
+    while 
 }
+  
+
+
+
+
+
+
+
+// const deck = new Deck()
+// console.log(deck)
+const game = new GameOfWar()
+// console.log()
+do { 
+    game.battle()
+}
+/// the game ends when one player has 52 cards (the full deck)
+while (game.p1.length > 0 && game.p2.length > 0) 
 
 
 
