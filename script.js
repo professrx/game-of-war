@@ -38,76 +38,67 @@ class GameOfWar {
 
     ///each player gets 26 cards (half a deck) to start
     init() {
-        let deck = new Deck()
-        this.p1 = deck.cards.splice(0, deck.cards.length / 2)
-        this.p2 = deck.cards
+        const deck = new Deck()
+        this.p1.push(...deck.cards.splice(0, deck.cards.length / 2));
+        this.p2.push(...deck.cards);
     }
 
+    // battle() {
+    //     // Set up game logic loop (a player has no more cards)
+    //     let p1Card = this.p1.pop();
+    //     let p2Card = this.p2.pop();
+    
+    //     if (p1Card.val === p2Card.val) {
+    //       console.log("War!!!");
+    //       this.pile.push(p1Card, p2Card)
+    //       this.war()
+    //     } else if (p1Card.val > p2Card.val) {
+    //       this.p1.unshift(p2Card, p1Card, ...this.pile)
+    //       // clear the pile
+    //       console.log("Player 1 Wins!");
+    //     } else {
+    //       console.log("Player 2 Wins!");
+    //       this.p2.unshift(p1Card, p2Card, ...this.pile)
+    //       // clear the pile
+    //     }
+    //   }
+    
+
     battle() {
-        // Set up game logic loop (a player has no more cards)
         let p1Card = this.p1.pop();
         let p2Card = this.p2.pop();
-    
-        if (p1Card.val === p2Card.val) {
-          console.log("War!!!");
-          this.pile.push(p1Card, p2Card)
-          this.war()
-        } else if (p1Card.val > p2Card.val) {
-          this.p1.unshift(p2Card, p1Card, ...this.pile)
-          // clear the pile
-          console.log("Player 1 Wins!");
+        // Grab the top card from each player's hand
+        /// card values from each players hand are compared and the highest card value wins the cards from that round (add both drawn cards to winner's deck). 
+        if (p1Card.val > p2Card.val) {
+            console.log("Player 1 wins round!")
+        /// player 1 wins both cards
+            this.p1.push(p2Card, p1Card)
+        /// player 2 wins both cards
+        } else if (p2Card.val > p1Card.val) {
+            console.log("Player 2 wins round!")
+            this.p2.push(p2Card, p1Card)
+        /// if there's a tie, war begins. 
         } else {
-          console.log("Player 2 Wins!");
-          this.p2.unshift(p1Card, p2Card, ...this.pile)
-          // clear the pile
-        }
+            console.log("Time for war!")
+            this.pile.push(p2Card, p1Card)
+            this.war()
+        } 
       }
-    
-
-    // battle() {
-    //     // Grab the top card from each player's hand
-    //     let p1Card = this.p1.pop()
-    //     let p2Card = this.p2.pop()
-    //     /// card values from each players hand are compared and the highest card value wins the cards from that round (add both drawn cards to winner's deck). 
-    //     if (p1Card.val > p2Card.val) {
-    //         console.log("Player 1 wins round!")
-    //     /// player 1 wins both cards
-    //         this.p1.push(p2Card, p1Card, ...this.pile)
-    //         console.log(this.p1.length + "deck length 1")
-    //         console.log(this.p2.length + "deck length 2")
-    //         console.log(this.pile.length  + "pile")
-    //     /// player 2 wins both cards
-    //     } else if (p2Card.val > p1Card.val) {
-    //         console.log("Player 2 wins round!")
-    //         this.p2.push(p2Card, p1Card, ...this.pile)
-    //         console.log(this.p1.length + "deck length 1")
-    //         console.log(this.p2.length + "deck length 2")
-    //         console.log(this.pile.length  + "pile")
-    //     /// if there's a tie, war begins. 
-    //     } else {
-    //         console.log("Time for war!")
-    //         this.pile.push(p2Card, p1Card)
-    //         this.war()
-    //     } 
-    //   }
 
     war() {
+        let p1Card = this.p1.pop();
+        let p2Card = this.p2.pop();
         /// add 3 cards from each player to pile
-        this.pile.push(...this.p1.splice(0, 3))
-        this.pile.push(...this.p2.splice(0, 3))
-        let p1Card = this.p1.pop()
-        let p2Card = this.p2.pop()
-        console.log(this.pile.length + 'big number')
-
+        this.pile.push(...this.p1.splice(0, 4))
+        this.pile.push(...this.p2.splice(0, 4))
+        console.log(this.pile.length)
         // during war, the game is initialized again- highest value wins all the cards
         if (p1Card.val > p2Card.val) {
             console.log("Player 1 wins round!")
-            this.p1.unshift(p1Card, p2Card, ...this.pile)
-
+            this.p1.push(p1Card, p2Card, ...this.pile)
         } else if (p2Card.val > p1Card.val) {
             console.log("Player 2 wins round!")
-            this.p2.unshift(p1Card, p2Card, ...this.pile)
-
+            this.p2.push(p1Card, p2Card, ...this.pile)
         } else {
         // if it's a tie, war begins again.
             this.war()
@@ -122,15 +113,13 @@ class GameOfWar {
 
 
 
-// const deck = new Deck()
-// console.log(deck)
 const game = new GameOfWar()
 // console.log()
-do { 
+// do { 
     game.battle()
-}
+// }
 /// the game ends when one player has 52 cards (the full deck)
-while (game.p1.length > 0 && game.p2.length > 0) 
+// while (game.p1.length > 0 && game.p2.length > 0) 
 
 
 
