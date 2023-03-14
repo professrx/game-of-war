@@ -1,4 +1,4 @@
-# JS Game of War
+# Game of War
 ### <strong>An automated version of the card game war </strong>
 #### Created using Javascript ES6
 <br>
@@ -11,9 +11,16 @@ game.battle()
 ```
 <br>
 
-#### *Code in action:*
+## *Code in action:*
 
-![](game-console.png)
+- ### new version:
+  ![](game-console2.png)
+
+<br>
+
+- ### old version:
+  ![](game-console.png)
+
 
 <br>
 
